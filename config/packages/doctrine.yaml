@@ -1,0 +1,61 @@
+doctrine:
+    dbal:
+        url: '%env(resolve:DATABASE_URL)%'
+        types:
+            bonus_id: App\Bonus\Entity\IdType
+            bonus_enum_type: App\Bonus\Entity\TypeType
+            client_id: App\Client\Entity\IdType
+            client_reward_id: App\ClientReward\Entity\IdType
+
+        profiling_collect_backtrace: '%kernel.debug%'
+    orm:
+        auto_generate_proxy_classes: true
+        enable_lazy_ghost_objects: true
+        report_fields_where_declared: true
+        validate_xml_mapping: true
+        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+        auto_mapping: true
+        mappings:
+            Bonus:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Bonus/Entity'
+                prefix: 'App\Bonus\Entity'
+                alias: Bonus
+            Client:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/Client/Entity'
+                prefix: 'App\Client\Entity'
+                alias: Client
+            ClientReward:
+                is_bundle: false
+                type: attribute
+                dir: '%kernel.project_dir%/src/ClientReward/Entity'
+                prefix: 'App\ClientReward\Entity'
+                alias: ClientReward
+
+when@test:
+    doctrine:
+        dbal:
+            dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system
