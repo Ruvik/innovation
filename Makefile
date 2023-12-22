@@ -1,4 +1,4 @@
-init: build composer-install up fixtures
+init: build composer-install migrate up fixtures
 
 build:
 	docker-compose build
@@ -14,6 +14,9 @@ up:
 
 down:
 	docker-compose down --remove-orphans
+
+migrate:
+	docker-compose run --rm php-fpm php bin/console doctrine:migrations:migrate --no-interaction
 
 fixtures:
 	docker compose run --rm php-fpm php bin/console doctrine:fixtures:load --no-interaction
