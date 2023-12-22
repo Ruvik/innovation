@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" backupGlobals="false" colors="true" bootstrap="tests/bootstrap.php">
+    <php>
+        <ini name="display_errors" value="1"/>
+        <ini name="error_reporting" value="-1"/>
+        <server name="APP_ENV" value="test" force="true"/>
+        <server name="SHELL_VERBOSITY" value="-1"/>
+        <!-- Убедитесь, что следующие настройки актуальны для вашей интеграции с Symfony -->
+        <server name="SYMFONY_PHPUNIT_REMOVE" value=""/>
+        <server name="SYMFONY_PHPUNIT_VERSION" value="10.5"/>
+        <env name="APP_DEBUG" value="1" force="true"/>
+    </php>
+    <testsuites>
+        <testsuite name="unit">
+            <directory>src/Bonus/Test/Unit</directory>
+            <directory>src/Client/Test/Unit</directory>
+            <directory>src/ClientReward/Test/Unit</directory>
+        </testsuite>
+        <testsuite name="integration">
+            <directory>src/Bonus/Test/Integration</directory>
+        </testsuite>
+    </testsuites>
+    <coverage/>
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <exclude>
+            <directory>src/App/Common/OpenApi</directory>
+            <directory>src/Bonus/Entity</directory>
+            <directory>src/Client/Entity</directory>
+            <directory>src/ClientReward/Entity</directory>
+        </exclude>
+    </source>
+</phpunit>
