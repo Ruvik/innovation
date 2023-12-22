@@ -30,6 +30,6 @@ class BonusService
      */
     public function getByIds(Id ...$ids): array
     {
-        return $this->bonusRepository->getByIds(... $ids);
+        return $this->bonusRepository->getByIds(...$ids);
     }
 }

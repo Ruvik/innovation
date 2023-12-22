@@ -27,12 +27,9 @@ class ApplyRewardHandlerTest extends TestCase
         $bonusService->method('getIdsByType')->willReturn([$fakeBonusId]);
         $clientRewardService->method('add');
 
-
         $handler = new ApplyRewardHandler($bonusService, $clientRewardService, $flusher);
 
-
         $command = new ApplyRewardCommand(\App\Client\Entity\Id::generate(), Type::SMILE);
-
 
         $result = $handler->handle($command);
 

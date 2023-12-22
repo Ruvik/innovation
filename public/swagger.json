@@ -1,0 +1,465 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Client API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/client": {
+            "post": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Add a new client",
+                "operationId": "addClient",
+                "requestBody": {
+                    "description": "Client data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "emailVerified": {
+                                        "type": "boolean"
+                                    },
+                                    "isBirthday": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Client created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "Unique ID of client",
+                                            "type": "string"
+                                        },
+                                        "appliedIds": {
+                                            "description": "List of bonus IDs that have been applied to the client",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity - Invalid type arguments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid type arguments"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - Domain specific error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bad request or domain specific message"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/client/{id}/rewards": {
+            "get": {
+                "tags": [
+                    "Client Rewards"
+                ],
+                "summary": "Get client rewards",
+                "operationId": "getClientRewards",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit of rewards per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A list of bonuses with pagination information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "description": "Array of bonus items",
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "createdAt": {
+                                                        "description": "The creation date and time of the bonus",
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2023-12-21 16:48:26"
+                                                    },
+                                                    "type": {
+                                                        "description": "The type of the bonus",
+                                                        "type": "string",
+                                                        "example": "Hug"
+                                                    },
+                                                    "name": {
+                                                        "description": "The name of the bonus",
+                                                        "type": "string",
+                                                        "example": "Test hug bonus - 11"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "meta": {
+                                            "description": "Metadata about the response",
+                                            "properties": {
+                                                "total": {
+                                                    "description": "Total number of items available",
+                                                    "type": "integer",
+                                                    "example": 40
+                                                },
+                                                "limit": {
+                                                    "description": "Number of items per page",
+                                                    "type": "integer",
+                                                    "example": 5
+                                                },
+                                                "page": {
+                                                    "description": "Current page number",
+                                                    "type": "integer",
+                                                    "example": 2
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity - Invalid type arguments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid type arguments"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - Domain specific error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bad request or domain specific message"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/client/{id}": {
+            "put": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Update client information",
+                "operationId": "updateClient",
+                "requestBody": {
+                    "description": "Client updated data",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "emailVerified": {
+                                        "type": "boolean"
+                                    },
+                                    "isBirthday": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Client created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "description": "Unique ID of client",
+                                            "type": "string"
+                                        },
+                                        "appliedIds": {
+                                            "description": "List of bonus IDs that have been applied to the client",
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity - Invalid type arguments",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid type arguments"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request - Domain specific error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Bad request or domain specific message"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found - Entity not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Entity not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Bonus": {
+                "description": "Abstract base class for Bonuses",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/UuidSchema"
+                    },
+                    "name": {
+                        "description": "Name of the Bonus",
+                        "type": "string",
+                        "example": "New Year Hug"
+                    }
+                },
+                "type": "object"
+            },
+            "Hug": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Bonus"
+                    }
+                ]
+            },
+            "Smile": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/Bonus"
+                    }
+                ]
+            },
+            "Client": {
+                "description": "Client entity representing a user of the application.",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/UuidSchema"
+                    },
+                    "emailVerified": {
+                        "description": "Flag indicating if the client's email is verified",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "isBirthday": {
+                        "description": "Flag indicating if today is the client's birthday",
+                        "type": "boolean",
+                        "example": false
+                    }
+                },
+                "type": "object"
+            },
+            "AddCommand": {
+                "description": "Command for adding a new client",
+                "required": [
+                    "emailVerified",
+                    "isBirthday"
+                ],
+                "properties": {
+                    "emailVerified": {
+                        "description": "Flag indicating if the client's email is verified",
+                        "type": "boolean"
+                    },
+                    "isBirthday": {
+                        "description": "Flag indicating if today is the client's birthday",
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },
+            "AddHandlerResponse": {
+                "description": "Response returned by AddHandler",
+                "type": "object"
+            },
+            "ClientReward": {
+                "description": "Associates a bonus with a client",
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/UuidSchema"
+                    },
+                    "clientId": {
+                        "$ref": "#/components/schemas/UuidSchema"
+                    },
+                    "bonusId": {
+                        "$ref": "#/components/schemas/UuidSchema"
+                    },
+                    "createdAt": {
+                        "description": "The date and time when the client reward was created",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            },
+            "UuidSchema": {
+                "description": "A universally unique identifier (UUID)",
+                "type": "string",
+                "format": "uuid",
+                "example": "123e4567-e89b-12d3-a456-426614174000"
+            }
+        }
+    }
+}

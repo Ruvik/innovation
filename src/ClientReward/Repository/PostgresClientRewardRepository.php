@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\ClientReward\Repository;
 
+use App\Bonus\Entity\Id;
 use App\ClientReward\Entity\ClientReward;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;

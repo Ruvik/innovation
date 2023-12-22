@@ -24,7 +24,6 @@ class RewardsFetcherTest extends TestCase
         $clientRewardService->method('getRewardsByClientId')->willReturn($fakeRewards);
         $clientRewardService->method('getCountRewardsByClientId')->willReturn(1);
 
-
         $fetcher = new RewardsFetcher($clientRewardService, $bonusService);
 
         $query = new RewardsQuery(ClientId::generate(), 1, 1);

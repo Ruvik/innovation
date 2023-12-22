@@ -1,4 +1,4 @@
-init: build composer-install
+init: build composer-install up fixtures
 
 build:
 	docker-compose build
@@ -32,3 +32,4 @@ test-unit-coverage:
 
 psalm-check:
 	docker compose run --rm php-fpm ./vendor/bin/psalm
+

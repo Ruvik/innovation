@@ -13,6 +13,7 @@
         <ignoreFiles>
             <directory name="vendor" />
             <directory name="src/**/Test" />
+            <directory name="src/**/OpenApi" />
         </ignoreFiles>
     </projectFiles>
 </psalm>

@@ -22,5 +22,10 @@ interface BonusRepositoryInterface
      * @param Id ...$ids
      * @return Bonus[]
      */
+
+    /**
+     * @param Id ...$ids
+     * @return Bonus[]
+     */
     public function getByIds(Id ...$ids): array;
 }

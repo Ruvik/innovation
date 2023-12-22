@@ -24,7 +24,6 @@ class Client
     #[OA\Property(description: "Flag indicating if today is the client's birthday", example: false)]
     private bool $isBirthday = false;
 
-
     public function __construct(Id $id)
     {
         $this->id = $id;

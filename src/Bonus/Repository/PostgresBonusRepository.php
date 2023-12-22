@@ -38,13 +38,15 @@ class PostgresBonusRepository extends ServiceEntityRepository implements BonusRe
             ->getQuery()
             ->getResult(AbstractQuery::HYDRATE_SCALAR);
 
-        $ids = array_map(function ($value) {
-            return new \App\Bonus\Entity\Id($value['id']);
+        return array_map(function ($value) {
+            return new Id($value['id']);
         }, $values);
-
-        return $ids;
     }
 
+    /**
+     * @param Id ...$ids
+     * @return Bonus[]
+     */
     public function getByIds(Id ...$ids): array
     {
         $qb = $this->createQueryBuilder('t');

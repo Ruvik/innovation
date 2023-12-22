@@ -6,8 +6,8 @@ namespace App\Client\Repository;
 
 use App\Client\Entity\Client;
 use App\Client\Entity\Id;
+use App\Client\Exception\EntityNotFoundException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
 
 class PostgresClientRepository extends ServiceEntityRepository implements ClientRepositoryInterface
@@ -37,7 +37,7 @@ class PostgresClientRepository extends ServiceEntityRepository implements Client
     {
         $entity = $this->_em->find($this->_entityName, $id);
         if ($entity === null) {
-            throw EntityNotFoundException::fromClassNameAndIdentifier(Client::class, [$id->getValue()]);
+            throw new EntityNotFoundException($id);
         }
         return $entity;
     }

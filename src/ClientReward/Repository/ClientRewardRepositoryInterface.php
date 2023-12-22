@@ -13,11 +13,6 @@ interface ClientRewardRepositoryInterface
     public function add(ClientReward $entity): void;
 
     /**
-     * @throws EntityNotFoundException
-     */
-    public function get(Id $id): ClientReward;
-
-    /**
      * @param \App\Client\Entity\Id $clientId
      * @param int $limit
      * @param int $offset

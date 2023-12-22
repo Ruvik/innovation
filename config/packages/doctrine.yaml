@@ -3,7 +3,6 @@ doctrine:
         url: '%env(resolve:DATABASE_URL)%'
         types:
             bonus_id: App\Bonus\Entity\IdType
-            bonus_enum_type: App\Bonus\Entity\TypeType
             client_id: App\Client\Entity\IdType
             client_reward_id: App\ClientReward\Entity\IdType
 

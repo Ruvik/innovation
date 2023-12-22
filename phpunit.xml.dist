@@ -26,7 +26,7 @@
             <directory suffix=".php">src</directory>
         </include>
         <exclude>
-            <file>./src/App/Common/OpenApi/UuidSchema.php</file>
+            <directory>src/App/Common/OpenApi</directory>
             <directory>src/Bonus/Entity</directory>
             <directory>src/Client/Entity</directory>
             <directory>src/ClientReward/Entity</directory>
